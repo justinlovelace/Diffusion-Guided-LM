@@ -1,0 +1,1 @@
+python train_diff.py wandb_name=diff_c4 train_mode=diffusion dataset_name=clean_c4

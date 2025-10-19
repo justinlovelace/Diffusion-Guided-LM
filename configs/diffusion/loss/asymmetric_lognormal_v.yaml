@@ -1,0 +1,5 @@
+weighting_name: asymmetric_lognormal_v
+weighting_kwargs:
+  mean: 0.0
+  std: 2.4
+  std_mult: 1.0

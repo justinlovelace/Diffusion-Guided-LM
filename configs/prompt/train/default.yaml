@@ -1,0 +1,15 @@
+optimizer: adamw
+train_batch_size: 64
+num_train_steps: 250000
+gradient_accumulation_steps: 1
+learning_rate: 5e-6
+lr_schedule: cosine
+lr_warmup_steps: 5000
+betas:
+  - 0.9
+  - 0.99
+independent_weight_decay: 1e-7
+clip_grad_norm: 1.0
+eval_every: 50
+
+mixed_precision: bf16

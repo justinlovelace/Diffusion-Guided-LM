@@ -1,0 +1,6 @@
+noise_schedule_name: cosine
+noise_schedule_scale: 1.0
+sampling_timesteps: 250
+num_samples: 250
+sampler: ddpm
+var_lambda: 0.2

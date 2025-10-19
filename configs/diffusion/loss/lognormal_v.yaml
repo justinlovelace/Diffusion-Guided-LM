@@ -1,0 +1,4 @@
+weighting_name: lognormal_v
+weighting_kwargs:
+  mean: 0.0
+  std: 2.4

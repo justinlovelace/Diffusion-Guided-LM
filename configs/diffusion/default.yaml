@@ -1,0 +1,3 @@
+sampling_cfg: cosine
+loss_cfg: asymmetric_lognormal_v
+arch_cfg: tx-12l-768d-64t

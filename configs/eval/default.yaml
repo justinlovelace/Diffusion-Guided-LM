@@ -1,0 +1,43 @@
+# Default evaluation configuration
+prompt_validation:
+  alpha2_values: [1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1, 0.0]
+  disable_noising: false
+
+diffusion_validation:
+  cfg_values: [1.0, 2.0, 3.0]
+  generation_eval:
+    alpha2_values: [0.8, 0.85, 0.9, 0.95, 1.0]  
+  standard_eval:
+    use_generation_eval: false
+
+guided_generation:
+  cfg_values: [1.0]
+  alpha2_values: [0.95]
+  cg_values: [5.0, 10.0, 20.0]
+  samples_per_prompt: 1
+  max_new_tokens: 20
+
+test_pipeline:
+  default:
+    cfg_values: [1.0]
+    alpha2_values: [0.95]
+    cg_values: [0.0, 5.0, 10.0, 20.0, 50.0, 100.0, 500.0, 1000.0]
+    samples_per_prompt: 25
+    max_new_tokens: 20
+  c4:
+    cfg_values: [1.0, 1.5, 2.0, 2.5, 3.0, 5.0]
+    samples_per_prompt: 1
+    max_new_tokens: 32
+  openwebtext:
+    cfg_values: [1.0, 1.5, 2.0, 2.5, 3.0, 5.0]
+    samples_per_prompt: 1
+    max_new_tokens: 32
+  alpha_sweep:
+    alpha2_values: [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.99, 1.0]
+
+# Target values for different tasks
+classifier_targets:
+  toxicity: 0.0  # reduce toxicity
+  positive_sentiment: 0.0  # increase positive sentiment  
+  negative_sentiment: 1.0  # increase negative sentiment
+  neutral: 0.0  # default neutral target

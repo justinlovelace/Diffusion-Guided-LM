@@ -6,7 +6,79 @@ This is the official code release for the ACL Findings 2024 paper:
 
 by Justin Lovelace, Varsha Kishore, Yiwei Chen, and Kilian Q. Weinberger
 
-**Note: Code will be available soon. Stay tuned for updates!**
+## Training
+
+### Setup
+
+1. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+2. Preprocess the dataset. The default configuration uses the C4 dataset:
+```bash
+cd text_datasets
+bash scripts/c4_10mill.sh
+```
+
+This will download and preprocess up to 10 million sequences from C4 with compression filtering.
+
+### Training the Diffusion Model
+
+The diffusion model learns to generate latent proposals that guide text generation. Train it using:
+
+```bash
+bash scripts/train/diffusion/default.sh
+```
+
+Or run directly with custom parameters:
+```bash
+python train_diff.py \
+  wandb_name=diff_c4 \
+  train_mode=diffusion \
+  dataset_name=clean_c4 \
+  diffusion.train.num_train_steps=100000
+```
+
+Key configuration options:
+- `wandb_name`: Experiment name for W&B logging
+- `train_mode`: Set to `diffusion` for diffusion model training
+- `dataset_name`: Dataset to use (e.g., `clean_c4`)
+- `diffusion.train.num_train_steps`: Number of training steps
+
+The diffusion model will be saved to `saved_models/` by default.
+
+### Training the Prompt Model
+
+The prompt model is the autoregressive language model that will be guided by the diffusion model. Train it using:
+
+```bash
+bash scripts/train/prompt/default.sh
+```
+
+Or run directly:
+```bash
+python train_diff.py \
+  wandb_name=prompt_c4 \
+  train_mode=prompt \
+  prompt.train.num_train_steps=100000
+```
+
+### Configuration System
+
+This project uses Hydra for configuration management. Configurations are organized in `configs/`:
+
+- **`configs/config.yaml`**: Main configuration file
+- **`configs/diffusion/`**: Diffusion model settings (architecture, loss, sampling, training)
+- **`configs/prompt/`**: Prompt model settings (architecture, augmentation, training)
+- **`configs/eval/`**: Evaluation parameters
+
+### Monitoring
+
+Training progress is logged to Weights & Biases (W&B). Make sure you have W&B configured:
+```bash
+wandb login
+```
 
 ### Abstract
 Current language models demonstrate remarkable proficiency in text generation. However, for many applications it is desirable to control attributes, such as sentiment, or toxicity, of the generated language---ideally tailored towards each specific use case and target audience. For auto-regressive language models, existing guidance methods are prone to decoding errors that cascade during generation and degrade performance.

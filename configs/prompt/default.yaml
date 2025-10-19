@@ -1,0 +1,3 @@
+arch_cfg: tx-6l-768d-ft
+augmentation_cfg: cosine-scale3
+    

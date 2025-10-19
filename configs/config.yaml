@@ -1,0 +1,25 @@
+defaults:
+  - prompt/arch: tx-6l-768d-ft
+  - prompt/augmentation: cosine-scale3
+  - prompt/train: default
+  - diffusion/sampling: cosine
+  - diffusion/loss: asymmetric_lognormal_v
+  - diffusion/arch: tx-12l-768d-64t
+  - diffusion/train: default
+  - eval: default
+  - _self_ # this is the default config
+
+wandb_name: null
+train_mode: null
+resume_training: False
+resume_dir: null
+do_eval: False
+eval_mode: null
+cache_only: False
+cache_dir: null
+save_dir: saved_models/
+dataset_name: c4
+eval_dataset_name: null
+load_diffusion_model: null
+load_prompt_model: null
+load_cls_model: null

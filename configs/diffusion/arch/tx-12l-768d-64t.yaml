@@ -1,0 +1,7 @@
+model_arch: transformer
+dim: 768
+depth: 12
+num_tokens: 32
+dropout: 0.0
+output_pooling: inv_splicer
+output_dim_mult: 8

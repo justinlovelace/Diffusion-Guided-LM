@@ -1,0 +1,2 @@
+noise_schedule_name: cosine
+noise_schedule_scale: 2.0
