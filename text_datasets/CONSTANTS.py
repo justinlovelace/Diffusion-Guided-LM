@@ -26,8 +26,35 @@ def get_sentiment_file_path(split):
     """Get the path for a sentiment data file by split name"""
     return os.path.join(SENTIMENT_DATA_PATH, f'{split}_prompts.jsonl')
 
+# Classification dataset paths for logistic regression
+CLS_DATASETS_PATH = 'classify/cls_datasets'
+
+# Jigsaw dataset paths (used for toxicity classifier training)
+JIGSAW_DATA_PATH = os.path.join(CLS_DATASETS_PATH, 'jigsaw')
+JIGSAW_TRAIN_FILE = os.path.join(JIGSAW_DATA_PATH, 'train.pt')
+JIGSAW_TEST_PUBLIC_FILE = os.path.join(JIGSAW_DATA_PATH, 'test_public_leaderboard.pt')
+JIGSAW_TEST_PRIVATE_FILE = os.path.join(JIGSAW_DATA_PATH, 'test_private_leaderboard.pt')
+
+# Sentiment classifier dataset paths
+SST2_CLS_DATA_PATH = os.path.join(CLS_DATASETS_PATH, 'sentiment/sst2')
+SST2_CLS_TRAIN_FILE = os.path.join(SST2_CLS_DATA_PATH, 'train.pt')
+SST2_CLS_VAL_FILE = os.path.join(SST2_CLS_DATA_PATH, 'validation.pt')
+
+AMAZON_CLS_DATA_PATH = os.path.join(CLS_DATASETS_PATH, 'sentiment/amazon_polarity')
+AMAZON_CLS_TRAIN_FILE = os.path.join(AMAZON_CLS_DATA_PATH, 'train.pt')
+AMAZON_CLS_TEST_FILE = os.path.join(AMAZON_CLS_DATA_PATH, 'test.pt')
+
+AG_NEWS_CLS_DATA_PATH = os.path.join(CLS_DATASETS_PATH, 'sentiment/ag_news')
+AG_NEWS_CLS_TRAIN_FILE = os.path.join(AG_NEWS_CLS_DATA_PATH, 'train.pt')
+AG_NEWS_CLS_TEST_FILE = os.path.join(AG_NEWS_CLS_DATA_PATH, 'test.pt')
+
+# Saved model paths
+SAVED_MODELS_PATH = 'saved_models'
+JIGSAW_LOG_REG_PATH = os.path.join(SAVED_MODELS_PATH, 'jigsaw/log_reg/')
+SST_AMAZON_LOG_REG_PATH = os.path.join(SAVED_MODELS_PATH, 'sst_amazon/log_reg/')
+
 # Evaluation data paths
-EVAL_DATA_DIR = os.path.join(TEXT_DATASETS_DIR, 'eval')
+EVAL_DATA_DIR = os.path.join(TEXT_DATASETS_DIR, 'data/eval')
 C4_PROMPT_CONTINUATIONS_PATH = os.path.join(EVAL_DATA_DIR, 'c4_prompt_continuations')
 OPENWEBTEXT_PROMPT_CONTINUATIONS_PATH = os.path.join(EVAL_DATA_DIR, 'openwebtext_prompt_continuations')
 

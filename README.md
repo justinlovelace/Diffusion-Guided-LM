@@ -6,6 +6,12 @@ This is the official code release for the ACL Findings 2024 paper:
 
 by Justin Lovelace, Varsha Kishore, Yiwei Chen, and Kilian Q. Weinberger
 
+**Paper**: https://arxiv.org/abs/2408.04220
+
+### Abstract
+Current language models demonstrate remarkable proficiency in text generation. However, for many applications it is desirable to control attributes, such as sentiment, or toxicity, of the generated language -- ideally tailored towards each specific use case and target audience. For auto-regressive language models, existing guidance methods are prone to decoding errors that cascade during generation and degrade performance. In contrast, text diffusion models can easily be guided with, for example, a simple linear sentiment classifier -- however they do suffer from significantly higher perplexity than auto-regressive alternatives. In this paper we use a guided diffusion model to produce a latent proposal that steers an auto-regressive language model to generate text with desired properties. Our model inherits the unmatched fluency of the auto-regressive approach and the plug-and-play flexibility of diffusion. We show that it outperforms previous plug-and-play guidance methods across a wide range of benchmark data sets. Further, controlling a new attribute in our framework is reduced to training a single logistic regression classifier.
+
+
 ## Training
 
 ### Setup
@@ -80,9 +86,43 @@ Training progress is logged to Weights & Biases (W&B). Make sure you have W&B co
 wandb login
 ```
 
-### Abstract
-Current language models demonstrate remarkable proficiency in text generation. However, for many applications it is desirable to control attributes, such as sentiment, or toxicity, of the generated language---ideally tailored towards each specific use case and target audience. For auto-regressive language models, existing guidance methods are prone to decoding errors that cascade during generation and degrade performance.
-In contrast, text diffusion models can easily be guided with, for example, a simple linear sentiment classifier---however they do suffer from significantly higher perplexity than auto-regressive alternatives. In this paper we use a guided diffusion model to produce a latent proposal that steers an auto-regressive language model to generate text with desired properties. Our model inherits the unmatched fluency of the auto-regressive approach and the plug-and-play flexibility of diffusion. We show that it outperforms previous plug-and-play guidance methods across a wide range of benchmark data sets. Further, controlling a new attribute in our framework is reduced to training a single logistic regression classifier.
+
+### Training Attribute Classifiers
+
+The framework uses simple logistic regression classifiers for plug-and-play attribute guidance. Train classifiers for sentiment and toxicity control:
+
+#### 1. Cache Dataset Embeddings
+
+First, cache the sentence embeddings for the classifier training datasets:
+
+```bash
+# Cache sentiment datasets (SST2 + Amazon Polarity)
+bash scripts/log_reg/cache_sentiment.sh
+
+# Cache Jigsaw toxicity dataset
+bash scripts/log_reg/cache_jigsaw.sh
+```
+
+**Note**: The Jigsaw dataset requires manual download from Kaggle:
+https://www.kaggle.com/c/jigsaw-unintended-bias-in-toxicity-classification/data
+
+Download the data, extract all files to a folder, then update the `data_dir` parameter in `classify/cls_datasets/cache_jigsaw_datasets.py`.
+
+#### 2. Train Classifiers
+
+Once embeddings are cached, train the logistic regression classifiers:
+
+```bash
+# Train sentiment classifier (on SST2 + Amazon Polarity)
+bash scripts/log_reg/train_sentiment.sh
+
+# Train toxicity classifier (on Jigsaw)
+bash scripts/log_reg/train_jigsaw.sh
+```
+
+The trained classifiers will be saved to `saved_models/sst_amazon/log_reg/` and `saved_models/jigsaw/log_reg/` respectively.
+
+
 
 ### Citation
 ```bibtex
